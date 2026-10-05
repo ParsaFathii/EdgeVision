@@ -54,6 +54,14 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      # Generate the Prisma client before typecheck: @prisma/client re-exports
+      # the generated types from node_modules/.prisma, which a fresh runner
+      # (or any fresh clone) does not have until this step runs. bun install
+      # also triggers it via the root postinstall script — kept explicit here
+      # so the gate never depends on lifecycle-script behavior.
+      - name: Generate Prisma client
+        run: bunx prisma generate
+
       # Lint + typecheck are the honest gates today. Deliberately NOT run in CI:
       # - `next build` needs env-specific / standalone-output wiring that a
       #   clean CI runner does not own (the orchestrator builds releases).
