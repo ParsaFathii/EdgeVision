@@ -3,7 +3,7 @@
 
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { Server } from "socket.io";
-import { isoNow, openDatabase, startRetentionSweeper } from "./db";
+import { isoNow, openDatabase, ensureSchema, startRetentionSweeper } from "./db";
 import { loadSettings } from "./settings";
 import { seedModels } from "./seed";
 import { SessionManager, engineBinaryExists } from "./sessions";
@@ -17,6 +17,7 @@ function log(...args: unknown[]): void {
 
 // --- boot: database, settings, seeds, retention ---
 const db = openDatabase();
+ensureSchema(db);
 const settings = loadSettings();
 seedModels(db);
 const retentionTimer = startRetentionSweeper(db);

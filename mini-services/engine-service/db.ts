@@ -33,6 +33,34 @@ export function openDatabase(): Database {
   return db;
 }
 
+/**
+ * Boot-time schema guard: the service writes with raw SQL and expects the
+ * tables that `bun run db:push` (Prisma) creates. Starting before that step
+ * used to fail deep inside seeding with a cryptic error — here it fails fast,
+ * in Persian, with the exact command to run next.
+ */
+export function ensureSchema(db: Database): void {
+  const required = ["streams", "sessions", "detections", "events", "metrics", "models"];
+  const found = new Set(
+    (
+      db
+        .query("SELECT name FROM sqlite_master WHERE type='table'")
+        .all() as Array<{ name: string }>
+    ).map((r) => r.name),
+  );
+  const missing = required.filter((t) => !found.has(t));
+  if (missing.length > 0) {
+    console.error(
+      "[engine-service] جدول‌های لازم در دیتابیس یافت نشد:",
+      missing.join(", "),
+    );
+    console.error(
+      "[engine-service] ابتدا در ریشهٔ مخزن دستور «bun run db:push» را اجرا کنید و سپس سرویس را دوباره راه‌اندازی کنید.",
+    );
+    process.exit(1);
+  }
+}
+
 /** ISO-8601 UTC timestamp for an epoch-ms value (or now). */
 export function isoNow(ms?: number): string {
   return new Date(ms ?? Date.now()).toISOString();
