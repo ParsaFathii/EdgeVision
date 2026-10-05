@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EdgeVision — Deployment Topology (hand-authored SVG, no external deps).
+     Copyright © 2026 Parsa Fathi — Apache-2.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" font-family="Segoe UI, Tahoma, sans-serif">
+  <style>
+    .box { fill: #FFFFFF; stroke: #44403C; stroke-width: 1.5; }
+    .box-teal { fill: #FFFFFF; stroke: #0F766E; stroke-width: 1.5; }
+    .box-amber { fill: #FFFFFF; stroke: #B45309; stroke-width: 1.5; }
+    .box-dash { fill: #FFFFFF; stroke: #71717A; stroke-width: 1.3; stroke-dasharray: 5 4; }
+    .t-title { font-size: 18px; fill: #1C1917; font-weight: 600; }
+    .t-sub18 { font-size: 11px; fill: #71717A; }
+    .t-name { font-size: 14px; fill: #1C1917; font-weight: 600; }
+    .t-name-teal { font-size: 12.5px; fill: #0F766E; font-weight: 600; }
+    .t-name-amber { font-size: 13.5px; fill: #B45309; font-weight: 600; }
+    .t-name-dash { font-size: 12.5px; fill: #44403C; font-weight: 600; }
+    .t-line { font-size: 11px; fill: #44403C; }
+    .t-zinc { font-size: 11px; fill: #71717A; }
+    .t-mono { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 10.5px; fill: #44403C; }
+    .t-monoz { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 10px; fill: #71717A; }
+    .t-arrow { font-size: 11px; fill: #57534E; }
+    .t-arrow-teal { font-size: 11px; fill: #0F766E; }
+    .t-arrow-emerald { font-size: 11px; fill: #059669; }
+    .t-arrow-amber { font-size: 11px; fill: #B45309; }
+    .t-arrow-zinc { font-size: 11px; fill: #71717A; }
+    .t-tiny { font-size: 10px; fill: #71717A; }
+    .ln { stroke: #57534E; stroke-width: 1.5; fill: none; }
+    .ln-teal { stroke: #0F766E; stroke-width: 1.5; fill: none; }
+    .ln-emerald { stroke: #059669; stroke-width: 1.5; fill: none; }
+    .ln-emerald-dash { stroke: #059669; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+    .ln-amber { stroke: #B45309; stroke-width: 1.5; fill: none; }
+    .ln-zinc { stroke: #71717A; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; }
+    .lg-teal { stroke: #0F766E; stroke-width: 3; }
+    .lg-emerald { stroke: #059669; stroke-width: 3; }
+    .lg-amber { stroke: #B45309; stroke-width: 3; }
+    .lg-zinc { stroke: #71717A; stroke-width: 3; stroke-dasharray: 5 4; }
+  </style>
+  <defs>
+    <marker id="a-std" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#57534E"/>
+    </marker>
+    <marker id="ar-std" markerWidth="9" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7.5,0 L0,3 L7.5,6 Z" fill="#57534E"/>
+    </marker>
+    <marker id="a-teal" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#0F766E"/>
+    </marker>
+    <marker id="ar-teal" markerWidth="9" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7.5,0 L0,3 L7.5,6 Z" fill="#0F766E"/>
+    </marker>
+    <marker id="a-emerald" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#B45309"/>
+    </marker>
+    <marker id="a-zinc" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#71717A"/>
+    </marker>
+    <marker id="ar-zinc" markerWidth="9" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7.5,0 L0,3 L7.5,6 Z" fill="#71717A"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="660" fill="#FAFAF9"/>
+
+  <text x="40" y="48" class="t-title">EdgeVision — Deployment Topology</text>
+  <text x="40" y="70" class="t-sub18">single-host local deployment · browser and optional clients connect over the LAN</text>
+
+  <!-- local host -->
+  <rect x="360" y="80" width="800" height="420" rx="6" class="box"/>
+  <text x="380" y="105" class="t-name">Local host — Linux</text>
+  <text x="380" y="122" class="t-tiny">single-user deployment · Debian / g++ 14 / Bun 1.3</text>
+
+  <!-- Next.js app -->
+  <rect x="560" y="130" width="440" height="80" rx="4" class="box"/>
+  <text x="780" y="158" text-anchor="middle" class="t-name">Next.js app</text>
+  <text x="780" y="178" text-anchor="middle" class="t-mono">:3000 · REST /api/v1</text>
+  <text x="780" y="196" text-anchor="middle" class="t-zinc">Prisma reads · Persian dashboard</text>
+
+  <!-- Engine service -->
+  <rect x="560" y="260" width="320" height="80" rx="4" class="box"/>
+  <text x="720" y="288" text-anchor="middle" class="t-name">Engine service</text>
+  <text x="720" y="308" text-anchor="middle" class="t-mono">:3003 · socket.io path /</text>
+  <text x="720" y="326" text-anchor="middle" class="t-zinc">owns writes · spawns engines</text>
+
+  <!-- Native engine processes -->
+  <rect x="590" y="390" width="170" height="70" rx="4" class="box-teal"/>
+  <text x="675" y="416" text-anchor="middle" class="t-name-teal">edgevision-engine × N</text>
+  <text x="675" y="438" text-anchor="middle" class="t-tiny">one process / session</text>
+
+  <!-- SQLite -->
+  <rect x="800" y="390" width="340" height="70" rx="4" class="box-amber"/>
+  <text x="970" y="416" text-anchor="middle" class="t-name-amber">SQLite — db/custom.db</text>
+  <text x="970" y="438" text-anchor="middle" class="t-zinc">WAL · busy_timeout 5000 · single file</text>
+
+  <!-- Browser (outside the host) -->
+  <rect x="60" y="130" width="180" height="80" rx="4" class="box"/>
+  <text x="150" y="158" text-anchor="middle" class="t-name">Browser</text>
+  <text x="150" y="178" text-anchor="middle" class="t-line">React dashboard</text>
+  <text x="150" y="196" text-anchor="middle" class="t-zinc">9 views · RTL</text>
+
+  <!-- Optional: FastAPI reference -->
+  <rect x="60" y="380" width="240" height="80" rx="4" class="box-dash"/>
+  <text x="180" y="406" text-anchor="middle" class="t-name-dash">FastAPI reference</text>
+  <text x="180" y="426" text-anchor="middle" class="t-monoz">:8000 · optional</text>
+  <text x="180" y="444" text-anchor="middle" class="t-tiny">reads the same SQLite file</text>
+
+  <!-- Optional: Flutter client -->
+  <rect x="60" y="490" width="240" height="70" rx="4" class="box-dash"/>
+  <text x="180" y="516" text-anchor="middle" class="t-name-dash">Flutter client</text>
+  <text x="180" y="538" text-anchor="middle" class="t-tiny">optional mobile app</text>
+
+  <!-- Browser <-> Next.js : HTTP -->
+  <path d="M240,170 L560,170" class="ln" marker-start="url(#ar-std)" marker-end="url(#a-std)"/>
+  <text x="400" y="161" text-anchor="middle" class="t-arrow">HTTP / JSON</text>
+
+  <!-- Browser <-> Engine service : WebSocket -->
+  <path d="M150,210 L150,300 L560,300" class="ln-emerald" marker-end="url(#a-emerald)"/>
+  <text x="270" y="291" text-anchor="middle" class="t-arrow-emerald">WebSocket · socket.io</text>
+
+  <!-- Next.js <-> Engine service : internal API -->
+  <path d="M750,210 L750,260" class="ln-zinc" marker-start="url(#ar-zinc)" marker-end="url(#a-zinc)"/>
+  <text x="760" y="238" class="t-arrow-zinc">internal API · x-internal-token</text>
+
+  <!-- Engine service <-> engine processes -->
+  <path d="M675,340 L675,390" class="ln-teal" marker-start="url(#ar-teal)" marker-end="url(#a-teal)"/>
+  <text x="667" y="368" text-anchor="end" class="t-arrow-teal">spawn · stdin/stdout</text>
+
+  <!-- Engine service -> SQLite : writes -->
+  <path d="M860,340 L860,390" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="870" y="368" class="t-arrow-amber">writes · WAL</text>
+
+  <!-- SQLite -> Next.js : Prisma reads -->
+  <path d="M800,425 L960,425 L960,210" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="968" y="330" class="t-arrow-amber">Prisma reads</text>
+
+  <!-- Flutter client -> Engine service : direct WS -->
+  <path d="M300,525 L780,525 L780,340" class="ln-emerald-dash" marker-end="url(#a-emerald)"/>
+  <text x="540" y="517" text-anchor="middle" font-family="ui-monospace, Consolas, Menlo, monospace" font-size="10.5" fill="#059669">ws://host:3003/ · socket.io path /</text>
+
+  <!-- Legend -->
+  <line x1="930" y1="563" x2="962" y2="563" class="lg-teal"/>
+  <text x="970" y="567" class="t-zinc">native engine</text>
+  <line x1="930" y1="581" x2="962" y2="581" class="lg-emerald"/>
+  <text x="970" y="585" class="t-zinc">realtime (WS)</text>
+  <line x1="930" y1="599" x2="962" y2="599" class="lg-amber"/>
+  <text x="970" y="603" class="t-zinc">storage (SQLite)</text>
+  <line x1="930" y1="617" x2="962" y2="617" class="lg-zinc"/>
+  <text x="970" y="621" class="t-zinc">optional / internal</text>
+
+  <text x="600" y="640" text-anchor="middle" class="t-zinc">EdgeVision · Copyright © 2026 Parsa Fathi · Apache-2.0</text>
+</svg>

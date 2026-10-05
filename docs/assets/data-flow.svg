@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EdgeVision — Data Flow (hand-authored SVG, no external deps).
+     Copyright © 2026 Parsa Fathi — Apache-2.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" font-family="Segoe UI, Tahoma, sans-serif">
+  <style>
+    .box { fill: #FFFFFF; stroke: #44403C; stroke-width: 1.5; }
+    .box-teal { fill: #FFFFFF; stroke: #0F766E; stroke-width: 1.5; }
+    .box-amber { fill: #FFFFFF; stroke: #B45309; stroke-width: 1.5; }
+    .band { fill: none; stroke: #71717A; stroke-width: 1; stroke-dasharray: 5 4; }
+    .mini { fill: #FFFFFF; stroke: #A8A29E; stroke-width: 1; }
+    .t-title { font-size: 18px; fill: #1C1917; font-weight: 600; }
+    .t-sub18 { font-size: 11px; fill: #71717A; }
+    .t-name { font-size: 14px; fill: #1C1917; font-weight: 600; }
+    .t-name-teal { font-size: 13px; fill: #0F766E; font-weight: 600; }
+    .t-name-amber { font-size: 13.5px; fill: #B45309; font-weight: 600; }
+    .t-mini { font-size: 12px; fill: #1C1917; font-weight: 600; }
+    .t-line { font-size: 11px; fill: #44403C; }
+    .t-zinc { font-size: 11px; fill: #71717A; }
+    .t-mono { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 10.5px; fill: #44403C; }
+    .t-monoz { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 10px; fill: #71717A; }
+    .t-arrow { font-size: 11px; fill: #57534E; }
+    .t-arrow-teal { font-size: 11px; fill: #0F766E; }
+    .t-arrow-emerald { font-size: 11px; fill: #059669; }
+    .t-arrow-amber { font-size: 11px; fill: #B45309; }
+    .t-tiny { font-size: 10px; fill: #71717A; }
+    .ln { stroke: #57534E; stroke-width: 1.5; fill: none; }
+    .ln-teal { stroke: #0F766E; stroke-width: 1.5; fill: none; }
+    .ln-emerald { stroke: #059669; stroke-width: 1.5; fill: none; }
+    .ln-amber { stroke: #B45309; stroke-width: 1.5; fill: none; }
+    .lg-teal { stroke: #0F766E; stroke-width: 3; }
+    .lg-emerald { stroke: #059669; stroke-width: 3; }
+    .lg-amber { stroke: #B45309; stroke-width: 3; }
+  </style>
+  <defs>
+    <marker id="a-std" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#57534E"/>
+    </marker>
+    <marker id="a-teal" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#0F766E"/>
+    </marker>
+    <marker id="a-emerald" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#B45309"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="780" fill="#FAFAF9"/>
+
+  <text x="40" y="48" class="t-title">EdgeVision — Data Flow</text>
+  <text x="40" y="70" class="t-sub18">end-to-end path — scene to dashboard · every persisted value is measured, none fabricated</text>
+
+  <!-- legend -->
+  <line x1="830" y1="52" x2="858" y2="52" class="lg-teal"/>
+  <text x="866" y="56" class="t-zinc">engine</text>
+  <line x1="930" y1="52" x2="958" y2="52" class="lg-emerald"/>
+  <text x="966" y="56" class="t-zinc">realtime</text>
+  <line x1="1040" y1="52" x2="1068" y2="52" class="lg-amber"/>
+  <text x="1076" y="56" class="t-zinc">storage</text>
+
+  <!-- native engine band -->
+  <rect x="35" y="88" width="1080" height="132" rx="6" class="band"/>
+  <text x="52" y="108" class="t-tiny">NATIVE C++ ENGINE — ONE PROCESS PER SESSION</text>
+
+  <!-- engine lane boxes -->
+  <rect x="50" y="125" width="125" height="65" rx="4" class="box-teal"/>
+  <text x="112" y="152" text-anchor="middle" class="t-name-teal">Scene generator</text>
+  <text x="112" y="172" text-anchor="middle" class="t-tiny">synthetic scenes</text>
+
+  <rect x="245" y="125" width="120" height="65" rx="4" class="box-teal"/>
+  <text x="305" y="152" text-anchor="middle" class="t-name-teal">Frame queue</text>
+  <text x="305" y="172" text-anchor="middle" class="t-tiny">bounded · drop-oldest</text>
+
+  <rect x="435" y="125" width="115" height="65" rx="4" class="box-teal"/>
+  <text x="492" y="152" text-anchor="middle" class="t-name-teal">Grid detector</text>
+  <text x="492" y="172" text-anchor="middle" class="t-tiny">quantize · cluster</text>
+
+  <rect x="620" y="125" width="110" height="65" rx="4" class="box-teal"/>
+  <text x="675" y="152" text-anchor="middle" class="t-name-teal">IoU tracker</text>
+  <text x="675" y="172" text-anchor="middle" class="t-tiny">3 / 12 / 0.3</text>
+
+  <rect x="800" y="125" width="105" height="65" rx="4" class="box-teal"/>
+  <text x="852" y="152" text-anchor="middle" class="t-name-teal">Event geometry</text>
+  <text x="852" y="172" text-anchor="middle" class="t-tiny">line · ROI</text>
+
+  <rect x="970" y="125" width="130" height="65" rx="4" class="box-teal"/>
+  <text x="1035" y="152" text-anchor="middle" class="t-name-teal">NDJSON stdout</text>
+  <text x="1035" y="172" text-anchor="middle" class="t-tiny">emit stride 2</text>
+
+  <!-- lane arrows -->
+  <path d="M175,157 L245,157" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="210" y="148" text-anchor="middle" class="t-arrow">frames</text>
+  <path d="M365,157 L435,157" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="400" y="148" text-anchor="middle" class="t-arrow">pop oldest</text>
+  <path d="M550,157 L620,157" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="585" y="148" text-anchor="middle" class="t-arrow">detections</text>
+  <path d="M730,157 L800,157" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="765" y="148" text-anchor="middle" class="t-arrow">tracks</text>
+  <path d="M905,157 L970,157" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="937" y="148" text-anchor="middle" class="t-arrow">events</text>
+
+  <!-- NDJSON stdout -> engine service -->
+  <path d="M1035,190 L1035,300" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="1045" y="250" class="t-arrow-teal">NDJSON lines</text>
+
+  <!-- engine service -->
+  <rect x="590" y="300" width="560" height="140" rx="4" class="box"/>
+  <text x="870" y="326" text-anchor="middle" class="t-name">Engine service</text>
+  <text x="870" y="346" text-anchor="middle" class="t-mono">:3003 · owns all writes</text>
+
+  <rect x="615" y="365" width="140" height="55" rx="3" class="mini"/>
+  <text x="685" y="388" text-anchor="middle" class="t-mini">parse NDJSON</text>
+  <text x="685" y="407" text-anchor="middle" class="t-tiny">validate lines</text>
+
+  <rect x="795" y="365" width="160" height="55" rx="3" class="mini"/>
+  <text x="875" y="388" text-anchor="middle" class="t-mini">batch + persist</text>
+  <text x="875" y="407" text-anchor="middle" class="t-tiny">detections 1 s</text>
+
+  <rect x="995" y="365" width="130" height="55" rx="3" class="mini"/>
+  <text x="1060" y="388" text-anchor="middle" class="t-mini">broadcast</text>
+  <text x="1060" y="407" text-anchor="middle" class="t-tiny">socket.io rooms</text>
+
+  <path d="M755,392 L795,392" class="ln" marker-end="url(#a-std)"/>
+  <path d="M955,392 L995,392" class="ln" marker-end="url(#a-std)"/>
+
+  <!-- batching annotations -->
+  <text x="625" y="462" class="t-tiny">detections: 1 s batches · events: immediate</text>
+  <text x="625" y="478" class="t-tiny">metrics: every 2nd line (persistEvery = 2)</text>
+
+  <!-- Next.js app -->
+  <rect x="50" y="560" width="250" height="130" rx="4" class="box"/>
+  <text x="175" y="588" text-anchor="middle" class="t-name">Next.js app</text>
+  <text x="175" y="608" text-anchor="middle" class="t-mono">:3000 · REST /api/v1</text>
+  <text x="175" y="628" text-anchor="middle" class="t-zinc">Prisma reads · zod</text>
+  <text x="175" y="646" text-anchor="middle" class="t-zinc">Persian dashboard · 9 views</text>
+
+  <!-- SQLite -->
+  <rect x="400" y="560" width="250" height="130" rx="4" class="box-amber"/>
+  <text x="525" y="588" text-anchor="middle" class="t-name-amber">SQLite</text>
+  <text x="525" y="608" text-anchor="middle" class="t-mono">db/custom.db</text>
+  <text x="525" y="632" text-anchor="middle" class="t-zinc">WAL · busy_timeout 5000</text>
+  <text x="525" y="650" text-anchor="middle" class="t-zinc">retention: metrics 24 h</text>
+  <text x="525" y="668" text-anchor="middle" class="t-zinc">detections 100 k · events 20 k</text>
+
+  <!-- Browser -->
+  <rect x="890" y="560" width="260" height="130" rx="4" class="box"/>
+  <text x="1020" y="588" text-anchor="middle" class="t-name">Browser</text>
+  <text x="1020" y="608" text-anchor="middle" class="t-line">LiveScene + metric cards</text>
+  <text x="1020" y="626" text-anchor="middle" class="t-zinc">charts · tables via REST</text>
+  <text x="1020" y="644" text-anchor="middle" class="t-zinc">auto-reconnect · re-subscribe</text>
+
+  <!-- engine service -> SQLite : writes -->
+  <path d="M610,440 L610,560" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="622" y="505" class="t-arrow-amber">writes</text>
+
+  <!-- SQLite -> Next.js : Prisma reads -->
+  <path d="M400,625 L300,625" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="350" y="616" text-anchor="middle" class="t-arrow-amber">Prisma reads</text>
+
+  <!-- engine service -> Browser : socket.io -->
+  <path d="M1035,440 L1035,560" class="ln-emerald" marker-end="url(#a-emerald)"/>
+  <text x="1045" y="505" class="t-arrow-emerald">socket.io rooms</text>
+  <text x="1045" y="522" class="t-monoz">stream:{id}</text>
+
+  <!-- Browser -> Next.js : REST loop -->
+  <path d="M1020,690 L1020,712 L190,712 L190,690" class="ln" marker-end="url(#a-std)"/>
+  <text x="605" y="705" text-anchor="middle" class="t-arrow">REST /api/v1 — charts · tables · reports</text>
+
+  <text x="600" y="752" text-anchor="middle" class="t-zinc">EdgeVision · Copyright © 2026 Parsa Fathi · Apache-2.0</text>
+</svg>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EdgeVision — System Architecture (hand-authored SVG, no external deps).
+     Copyright © 2026 Parsa Fathi — Apache-2.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" font-family="Segoe UI, Tahoma, sans-serif">
+  <style>
+    .box { fill: #FFFFFF; stroke: #44403C; stroke-width: 1.5; }
+    .box-teal { fill: #FFFFFF; stroke: #0F766E; stroke-width: 1.5; }
+    .box-amber { fill: #FFFFFF; stroke: #B45309; stroke-width: 1.5; }
+    .t-title { font-size: 18px; fill: #1C1917; font-weight: 600; }
+    .t-sub18 { font-size: 11px; fill: #71717A; }
+    .t-name { font-size: 14px; fill: #1C1917; font-weight: 600; }
+    .t-name-teal { font-size: 14px; fill: #0F766E; font-weight: 600; }
+    .t-name-amber { font-size: 13.5px; fill: #B45309; font-weight: 600; }
+    .t-line { font-size: 11px; fill: #44403C; }
+    .t-zinc { font-size: 11px; fill: #71717A; }
+    .t-mono { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 10.5px; fill: #44403C; }
+    .t-arrow { font-size: 11px; fill: #57534E; }
+    .t-arrow-teal { font-size: 11px; fill: #0F766E; }
+    .t-arrow-emerald { font-size: 11px; fill: #059669; }
+    .t-arrow-amber { font-size: 11px; fill: #B45309; }
+    .t-arrow-zinc { font-size: 11px; fill: #71717A; }
+    .t-tiny { font-size: 10px; fill: #71717A; }
+    .ln { stroke: #57534E; stroke-width: 1.5; fill: none; }
+    .ln-teal { stroke: #0F766E; stroke-width: 1.5; fill: none; }
+    .ln-emerald { stroke: #059669; stroke-width: 1.5; fill: none; }
+    .ln-amber { stroke: #B45309; stroke-width: 1.5; fill: none; }
+    .ln-zinc { stroke: #71717A; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; }
+    .lg-teal { stroke: #0F766E; stroke-width: 3; }
+    .lg-emerald { stroke: #059669; stroke-width: 3; }
+    .lg-amber { stroke: #B45309; stroke-width: 3; }
+    .lg-zinc { stroke: #71717A; stroke-width: 3; stroke-dasharray: 5 4; }
+  </style>
+  <defs>
+    <marker id="a-std" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#57534E"/>
+    </marker>
+    <marker id="ar-std" markerWidth="9" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7.5,0 L0,3 L7.5,6 Z" fill="#57534E"/>
+    </marker>
+    <marker id="a-teal" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#0F766E"/>
+    </marker>
+    <marker id="a-emerald" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#B45309"/>
+    </marker>
+    <marker id="a-zinc" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#71717A"/>
+    </marker>
+    <marker id="ar-zinc" markerWidth="9" markerHeight="7" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7.5,0 L0,3 L7.5,6 Z" fill="#71717A"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="640" fill="#FAFAF9"/>
+
+  <text x="60" y="52" class="t-title">EdgeVision — System Architecture</text>
+  <text x="60" y="74" class="t-sub18">four cooperating layers · one SQLite database · Persian-first dashboard</text>
+
+  <!-- Browser -->
+  <rect x="60" y="100" width="260" height="110" rx="4" class="box"/>
+  <text x="190" y="128" text-anchor="middle" class="t-name">Browser</text>
+  <text x="190" y="150" text-anchor="middle" class="t-line">React dashboard — 9 views</text>
+  <text x="190" y="170" text-anchor="middle" class="t-zinc">socket.io client · REST polling</text>
+
+  <!-- Next.js app -->
+  <rect x="700" y="100" width="320" height="110" rx="4" class="box"/>
+  <text x="860" y="128" text-anchor="middle" class="t-name">Next.js app</text>
+  <text x="860" y="150" text-anchor="middle" class="t-mono">:3000 · REST /api/v1</text>
+  <text x="860" y="170" text-anchor="middle" class="t-zinc">Prisma reads · zod validation</text>
+  <text x="860" y="188" text-anchor="middle" class="t-zinc">rate limit 60 mutations / min / IP</text>
+
+  <!-- Native C++ engine -->
+  <rect x="60" y="330" width="350" height="150" rx="4" class="box-teal"/>
+  <text x="235" y="358" text-anchor="middle" class="t-name-teal">Native C++ engine</text>
+  <text x="235" y="378" text-anchor="middle" class="t-zinc">one process per session · C++20</text>
+  <text x="85" y="400" class="t-line">producer / consumer threads</text>
+  <text x="85" y="418" class="t-line">bounded frame queue · drop-oldest</text>
+  <text x="85" y="436" class="t-line">grid-scan detector · IoU tracker</text>
+  <text x="85" y="454" class="t-line">LINE_CROSS / ROI events · perf monitor</text>
+
+  <!-- Engine service -->
+  <rect x="700" y="330" width="320" height="150" rx="4" class="box"/>
+  <text x="860" y="358" text-anchor="middle" class="t-name">Engine service</text>
+  <text x="860" y="378" text-anchor="middle" class="t-mono">:3003 · socket.io path /</text>
+  <text x="725" y="400" class="t-line">owns ALL database writes</text>
+  <text x="725" y="418" class="t-line">bun:sqlite · WAL · busy_timeout</text>
+  <text x="725" y="436" class="t-line">spawns &amp; monitors engine procs</text>
+  <text x="725" y="454" class="t-line">internal HTTP API · retention</text>
+
+  <!-- SQLite -->
+  <rect x="1050" y="250" width="110" height="180" rx="4" class="box-amber"/>
+  <text x="1105" y="286" text-anchor="middle" class="t-name-amber">SQLite</text>
+  <text x="1105" y="308" text-anchor="middle" class="t-mono">db/custom.db</text>
+  <text x="1105" y="332" text-anchor="middle" class="t-zinc">WAL mode</text>
+  <text x="1105" y="350" text-anchor="middle" class="t-zinc">streams · sessions</text>
+  <text x="1105" y="368" text-anchor="middle" class="t-zinc">detections · events</text>
+  <text x="1105" y="386" text-anchor="middle" class="t-zinc">metrics · models</text>
+
+  <!-- Browser <-> Next.js : HTTP/JSON -->
+  <path d="M320,155 L700,155" class="ln" marker-start="url(#ar-std)" marker-end="url(#a-std)"/>
+  <text x="510" y="146" text-anchor="middle" class="t-arrow">HTTP / JSON</text>
+
+  <!-- Browser <-> Engine service : WebSocket -->
+  <path d="M190,210 L190,275 L760,275 L760,330" class="ln-emerald" marker-end="url(#a-emerald)"/>
+  <text x="475" y="266" text-anchor="middle" class="t-arrow-emerald">WebSocket — socket.io</text>
+
+  <!-- Next.js <-> Engine service : internal control API -->
+  <path d="M860,210 L860,330" class="ln-zinc" marker-start="url(#ar-zinc)" marker-end="url(#a-zinc)"/>
+  <text x="870" y="258" class="t-arrow-zinc">internal control API</text>
+  <text x="870" y="274" class="t-tiny">x-internal-token header</text>
+
+  <!-- Engine service -> Native engine : stdin commands -->
+  <path d="M700,375 L410,375" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="555" y="366" text-anchor="middle" class="t-arrow-teal">stdin — text commands</text>
+  <text x="555" y="391" text-anchor="middle" class="t-tiny">stop · set grid / queue / stride · ping</text>
+
+  <!-- Native engine -> Engine service : stdout NDJSON -->
+  <path d="M410,425 L700,425" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="555" y="416" text-anchor="middle" class="t-arrow-teal">stdout — NDJSON</text>
+  <text x="555" y="441" text-anchor="middle" class="t-tiny">frames · metrics · events · session_end</text>
+
+  <!-- SQLite -> Next.js : Prisma reads -->
+  <path d="M1105,250 L1105,155 L1020,155" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="1113" y="205" class="t-arrow-amber">Prisma reads</text>
+
+  <!-- Engine service -> SQLite : writes -->
+  <path d="M1020,455 L1105,455 L1105,430" class="ln-amber" marker-end="url(#a-amber)"/>
+  <text x="1028" y="472" class="t-arrow-amber">writes · WAL</text>
+
+  <!-- Legend -->
+  <line x1="60" y1="572" x2="90" y2="572" class="lg-teal"/>
+  <text x="98" y="576" class="t-zinc">native engine</text>
+  <line x1="185" y1="572" x2="215" y2="572" class="lg-emerald"/>
+  <text x="223" y="576" class="t-zinc">realtime (socket.io)</text>
+  <line x1="350" y1="572" x2="380" y2="572" class="lg-amber"/>
+  <text x="388" y="576" class="t-zinc">storage (SQLite)</text>
+  <line x1="505" y1="572" x2="535" y2="572" class="lg-zinc"/>
+  <text x="543" y="576" class="t-zinc">internal control</text>
+
+  <text x="600" y="615" text-anchor="middle" class="t-zinc">EdgeVision · Copyright © 2026 Parsa Fathi · Apache-2.0</text>
+</svg>

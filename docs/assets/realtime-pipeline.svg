@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EdgeVision — Native Engine Pipeline (hand-authored SVG, no external deps).
+     Copyright © 2026 Parsa Fathi — Apache-2.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" font-family="Segoe UI, Tahoma, sans-serif">
+  <style>
+    .box { fill: #FFFFFF; stroke: #44403C; stroke-width: 1.5; }
+    .box-teal { fill: #FFFFFF; stroke: #0F766E; stroke-width: 1.5; }
+    .t-title { font-size: 18px; fill: #1C1917; font-weight: 600; }
+    .t-sub18 { font-size: 11px; fill: #71717A; }
+    .t-name { font-size: 14px; fill: #1C1917; font-weight: 600; }
+    .t-name-teal { font-size: 13px; fill: #0F766E; font-weight: 600; }
+    .t-line { font-size: 11px; fill: #44403C; }
+    .t-zinc { font-size: 11px; fill: #71717A; }
+    .t-tiny { font-size: 10px; fill: #71717A; }
+    .t-arrow { font-size: 11px; fill: #57534E; }
+    .ln { stroke: #57534E; stroke-width: 1.5; fill: none; }
+    .ln-teal { stroke: #0F766E; stroke-width: 1.5; fill: none; }
+    .ln-zinc { stroke: #71717A; stroke-width: 1.2; fill: none; stroke-dasharray: 5 4; }
+    .lg-teal { stroke: #0F766E; stroke-width: 3; }
+    .lg-zinc { stroke: #71717A; stroke-width: 3; stroke-dasharray: 5 4; }
+  </style>
+  <defs>
+    <marker id="a-teal" markerWidth="9" markerHeight="7" refX="7.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7.5,3 L0,6 Z" fill="#0F766E"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="660" fill="#FAFAF9"/>
+
+  <text x="40" y="48" class="t-title">EdgeVision — Native Engine Pipeline</text>
+  <text x="40" y="70" class="t-sub18">inside one engine process — producer thread, bounded queue, consumer loop</text>
+
+  <!-- legend -->
+  <line x1="850" y1="52" x2="878" y2="52" class="lg-teal"/>
+  <text x="886" y="56" class="t-zinc">data path</text>
+  <line x1="975" y1="52" x2="1003" y2="52" class="lg-zinc"/>
+  <text x="1011" y="56" class="t-zinc">observation</text>
+
+  <!-- producer thread -->
+  <text x="60" y="93" class="t-tiny">PRODUCER THREAD</text>
+  <rect x="60" y="103" width="240" height="70" rx="4" class="box-teal"/>
+  <text x="180" y="127" text-anchor="middle" class="t-name-teal">Scene generator</text>
+  <text x="180" y="146" text-anchor="middle" class="t-tiny">STREET · INTERSECTION · PARKING</text>
+  <text x="180" y="162" text-anchor="middle" class="t-tiny">paced at target FPS (1–30)</text>
+
+  <path d="M300,138 L360,138" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="330" y="129" text-anchor="middle" class="t-tiny">push</text>
+
+  <!-- bounded queue -->
+  <rect x="360" y="93" width="170" height="90" rx="4" class="box-teal"/>
+  <text x="445" y="117" text-anchor="middle" class="t-name-teal">Bounded queue</text>
+  <text x="445" y="139" text-anchor="middle" class="t-line">capacity 5–200</text>
+  <text x="445" y="157" text-anchor="middle" class="t-line">drop-oldest on full</text>
+  <text x="445" y="175" text-anchor="middle" class="t-tiny">SPSC · mutex + condvar</text>
+
+  <path d="M530,138 L560,138" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="545" y="129" text-anchor="middle" class="t-tiny">pop</text>
+
+  <!-- consumer thread -->
+  <text x="560" y="93" class="t-tiny">CONSUMER THREAD — PER-FRAME LOOP</text>
+
+  <rect x="560" y="110" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="134" text-anchor="middle" class="t-name-teal">Grid quantize</text>
+  <text x="675" y="153" text-anchor="middle" class="t-tiny">occupancy → cols × rows</text>
+
+  <rect x="560" y="188" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="212" text-anchor="middle" class="t-name-teal">Connected components</text>
+  <text x="675" y="231" text-anchor="middle" class="t-tiny">cluster occupied cells</text>
+
+  <rect x="560" y="266" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="290" text-anchor="middle" class="t-name-teal">Classify · confidence</text>
+  <text x="675" y="309" text-anchor="middle" class="t-tiny">size / aspect · deterministic</text>
+
+  <rect x="560" y="344" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="368" text-anchor="middle" class="t-name-teal">IoU tracker</text>
+  <text x="675" y="387" text-anchor="middle" class="t-tiny">minHits 3 · maxAge 12 · IoU 0.3</text>
+
+  <rect x="560" y="422" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="446" text-anchor="middle" class="t-name-teal">Event geometry</text>
+  <text x="675" y="465" text-anchor="middle" class="t-tiny">line: sign flip · ROI ±0.02</text>
+
+  <rect x="560" y="500" width="230" height="56" rx="4" class="box-teal"/>
+  <text x="675" y="524" text-anchor="middle" class="t-name-teal">Emitter</text>
+  <text x="675" y="543" text-anchor="middle" class="t-tiny">emit stride 2 · NDJSON stdout</text>
+
+  <!-- consumer chain arrows -->
+  <path d="M675,166 L675,188" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="685" y="181" class="t-tiny">occupancy grid</text>
+  <path d="M675,244 L675,266" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="685" y="259" class="t-tiny">components</text>
+  <path d="M675,322 L675,344" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="685" y="337" class="t-tiny">detections + conf</text>
+  <path d="M675,400 L675,422" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="685" y="415" class="t-tiny">confirmed tracks</text>
+  <path d="M675,478 L675,500" class="ln-teal" marker-end="url(#a-teal)"/>
+  <text x="685" y="493" class="t-tiny">events</text>
+
+  <!-- performance monitor (side) -->
+  <rect x="830" y="250" width="320" height="180" rx="4" class="box"/>
+  <text x="990" y="274" text-anchor="middle" class="t-name">Performance monitor</text>
+  <text x="990" y="293" text-anchor="middle" class="t-tiny">observes both threads · window 2 s / 512</text>
+  <text x="855" y="319" class="t-line">latency per frame: avg / min / max / P50 / P95</text>
+  <text x="855" y="337" class="t-line">source FPS · processed FPS</text>
+  <text x="855" y="355" class="t-line">queue depth + dropped frames</text>
+  <text x="855" y="373" class="t-line">CPU % — /proc/self/stat</text>
+  <text x="855" y="391" class="t-line">RSS — /proc/self/status</text>
+
+  <path d="M790,294 L830,294" class="ln-zinc"/>
+
+  <!-- degraded note -->
+  <text x="60" y="600" class="t-tiny">DEGRADED when processedFps &lt; 0.6 × sourceFps for 5 s — recovers after 10 s (hysteresis)</text>
+
+  <text x="600" y="638" text-anchor="middle" class="t-zinc">EdgeVision · Copyright © 2026 Parsa Fathi · Apache-2.0</text>
+</svg>
