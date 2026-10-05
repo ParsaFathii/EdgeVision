@@ -46,12 +46,19 @@ bun run db:push
 
 This applies `prisma/schema.prisma` to `db/custom.db` (the file is created
 with its tables and indexes). Prisma reads the `DATABASE_URL` environment
-variable, typically from a `.env` file in the repo root:
-`DATABASE_URL=file:/absolute/path/to/edgevision/db/custom.db` (create the
-file if your clone lacks it; the engine service, which does not use
-Prisma, resolves `db/custom.db` relative to the repository layout on its
-own). Nothing else is seeded: the database starts empty, and the model
-registry is seeded automatically by the engine service on first boot.
+variable from a `.env` file in the repo root — copy the committed template
+first (it ships a working relative default, `file:db/custom.db`, resolved
+from the repository root):
+
+```bash
+cp .env.example .env
+```
+
+The engine service, which does not use Prisma, resolves the same
+`db/custom.db` relative to the repository layout on its own, so both
+processes always land on one database file. Nothing else is seeded: the
+database starts empty, and the model registry is seeded automatically by
+the engine service on first boot.
 
 ### 3. Build the native engine
 

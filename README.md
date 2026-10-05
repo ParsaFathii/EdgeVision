@@ -114,20 +114,27 @@ Tested on Linux (Debian) with g++ 14, Bun 1.3, Node 24. Prerequisites and
 troubleshooting: [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
 ```bash
-# 1. Install web dependencies (repo root)
+# 0. Get the repository
+git clone https://github.com/ParsaFathii/EdgeVision.git
+cd EdgeVision
+
+# 1. Local environment (SQLite path defaults to db/custom.db)
+cp .env.example .env
+
+# 2. Install web dependencies (repo root)
 bun install
 
-# 2. Create the SQLite database (prisma/schema.prisma -> db/custom.db)
+# 3. Create the SQLite database (prisma/schema.prisma -> db/custom.db)
 bun run db:push
 
-# 3. Build the native engine (engine-cpp/build/edgevision-engine)
+# 4. Build the native engine (engine-cpp/build/edgevision-engine)
 bash scripts/build-engine.sh
 
-# 4. Start the engine service (port 3003; keep this terminal or use nohup)
+# 5. Start the engine service (port 3003; keep this terminal or use nohup)
 cd mini-services/engine-service && bun install && bun run dev
 
-# 5. Start the app (repo root, new terminal; port 3000)
-bun run dev
+# 6. Start the app (repo root, new terminal; port 3000)
+cd ../.. && bun run dev
 ```
 
 Open <http://localhost:3000>. The overview view has a «راه‌اندازی سریع»
@@ -192,6 +199,11 @@ Captured from the running application at a 1440x900 viewport:
 | [docs/assets/screenshots/sessions.png](docs/assets/screenshots/sessions.png) | Session history table |
 | [docs/assets/screenshots/settings.png](docs/assets/screenshots/settings.png) | Engine defaults and display preferences |
 
+A ~30s demo GIF (view tour, live scene with detection boxes, real-time
+metrics, detections explorer, events) is at
+[docs/assets/screenshots/dashboard-live.gif](docs/assets/screenshots/dashboard-live.gif) —
+recorded directly from the running app, no staged frames.
+
 ## Documentation
 
 | Document | Language |
@@ -211,7 +223,7 @@ Captured from the running application at a 1440x900 viewport:
 | [docs/fa/DEVELOPMENT_FA.md](docs/fa/DEVELOPMENT_FA.md) | Persian |
 | [docs/fa/COPYRIGHT_FA.md](docs/fa/COPYRIGHT_FA.md) | Persian |
 
-Also: [SECURITY.md](SECURITY.md) (threat model and reporting),
+Also: [COPYRIGHT.md](COPYRIGHT.md), [SECURITY.md](SECURITY.md) (threat model and reporting),
 [CONTRIBUTING.md](CONTRIBUTING.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---

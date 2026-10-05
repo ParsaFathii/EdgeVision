@@ -22,7 +22,7 @@
 
 | متغیر | پیش‌فرض | اثر |
 |---|---|---|
-| `DATABASE_URL` | `file:/home/z/my-project/db/custom.db` (در `.env`) | مسیر SQLite برای Prisma و سرویس |
+| `DATABASE_URL` | `file:db/custom.db` (از `.env`؛ قالب: `.env.example`) | مسیر SQLite برای Prisma و اپ — نسبت به ریشهٔ مخزن resolve می‌شود |
 | `EV_INTERNAL_TOKEN` | `edgevision-local` | توکن هدر `x-internal-token` بین اپ و سرویس |
 | `EV_ENGINE_SERVICE_URL` | `http://127.0.0.1:3003` | نشانی API داخلی سرویس از دید اپ |
 | `ENGINE_BIN` | مسیر بیلد release | override مسیر باینری موتور (کاربرد اصلی: تست) |
@@ -50,11 +50,19 @@ bun install
 bun run db:push
 ```
 
-پشت این دستور `prisma db push` اجرا می‌شود و جداول `streams`، `sessions`، `detections`، `events`، `metrics` و `models` در `db/custom.db` ساخته می‌شوند. مسیر دیتابیس از `DATABASE_URL` در فایل `.env` می‌آید:
+پشت این دستور `prisma db push` اجرا می‌شود و جداول `streams`، `sessions`، `detections`، `events`، `metrics` و `models` در `db/custom.db` ساخته می‌شوند. مسیر دیتابیس از `DATABASE_URL` در فایل `.env` می‌آید — پیش از این گام، قالب را کپی کنید:
+
+```bash
+cp .env.example .env
+```
+
+محتوای پیش‌فرض (نسبی به ریشهٔ مخزن):
 
 ```
-DATABASE_URL=file:/home/z/my-project/db/custom.db
+DATABASE_URL=file:db/custom.db
 ```
+
+سرویس موتور این فایل را نمی‌خواند و مسیر دیتابیس را نسبت به محل خودش پیدا می‌کند — که به همین فایل می‌رسد؛ پس همیشه هر دو سرویس روی یک دیتابیس کار می‌کنند.
 
 اگر پوشهٔ `db/` وجود نداشت، سرویس موتور خودش موقع بوت می‌سازد؛ اما برای آماده‌شدن دیتابیس پیش از اولین اجرای API همین‌جا لازم است اجرایش کنید.
 
@@ -67,7 +75,7 @@ bash scripts/build-engine.sh
 خروجی مورد انتظار (ضبط‌شده):
 
 ```
-/home/z/my-project/engine-cpp/build/edgevision-engine
+engine-cpp/build/edgevision-engine
 ```
 
 اسکریپت فقط مسیر باینری را چاپ می‌کند؛ هیچ هشدار و خطایی نباید ببینید — پروژه با `-Wall -Wextra -Wconversion -Wshadow -Werror` کامپایل می‌شود و روی دوازده ثانیهٔ یک ماشین معمولی تمام می‌شود. برای بیلد اشکال‌زدایی:
@@ -99,7 +107,7 @@ bun run dev
 
 ```
 $ bun --hot index.ts
-[engine-service] database open (WAL): /home/z/my-project/db/custom.db
+[engine-service] database open (WAL): …/EdgeVision/db/custom.db
 [engine-service] listening on port 3003 (internal API + socket.io at path "/")
 [engine-service] engine binary present
 ```
@@ -181,6 +189,7 @@ flutter run
 |---|---|---|
 | `EADDRINUSE` موقع `bun run dev` | پورت ۳۰۰۰ اشغال است | فرایند قبلی را ببندید (`lsof -i :3000`) یا آن را kill کنید |
 | سرویس موتور بالا نمی‌آید | پورت ۳۰۰۳ اشغال است | `lsof -i :3003` و بستن فرایند قبلی |
+| پیام فارسی «جدول‌های لازم در دیتابیس یافت نشد…» | سرویس موتور قبل از اجرای `bun run db:push` راه‌اندازی شده | در ریشهٔ مخزن `bun run db:push` را اجرا و سرویس را ری‌استارت کنید |
 | خطای ۵۰۳ با پیام «سرویس پردازش در دسترس نیست» | سرویس موتور (پورت ۳۰۰۳) خاموش است | گام ۵ را اجرا کنید؛ داشبورد خودش با اتصال مجدد برمی‌گردد |
 | خطای ۵۰۳ با پیام «موتور بومی ساخته نشده است…» | باینری `engine-cpp/build/edgevision-engine` وجود ندارد | `bash scripts/build-engine.sh` را اجرا کنید |
 | فایل‌های `custom.db-wal` و `custom.db-shm` کنار دیتابیس | حالت WAL عادی SQLite است، نه خرابی | کاری نکنید؛ این فایل‌ها بخشی از دیتابیس زنده‌اند و در git نادیده گرفته می‌شوند |

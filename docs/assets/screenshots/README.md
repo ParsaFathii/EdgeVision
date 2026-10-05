@@ -24,4 +24,10 @@ from a live dev instance, so they are not part of any source task).
 Capture tool note: Playwright / agent-browser, 1440×900, waiting for socket
 connection and at least one live frame before each shot.
 
+`dashboard-live.gif` is a ~30s screen recording of the same live instance
+(1440×900 source, encoded at 9 fps): a tour through نمای کلی → استریم‌های
+زنده → the live stream detail (moving detection boxes with class labels and
+confidence, ROI overlay, crossing line, live metric cards) → کاوشگر تشخیص →
+رویدادها. Recorded with the same automated browser; no staged frames.
+
 © 2026 Parsa Fathi — Apache-2.0.
