@@ -1,0 +1,134 @@
+// EdgeVision — engine orchestration service
+// Copyright © 2026 Parsa Fathi — Apache-2.0
+
+// Prisma schema (READS ONLY from Next.js). ALL writes go through
+// mini-services/engine-service via bun:sqlite raw SQL — column names below
+// are frozen snake_case and must match that SQL exactly.
+// DateTime columns store ISO-8601 UTC strings ("...Z"), written by the
+// service as new Date(ms).toISOString().
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Stream {
+  id                  String   @id
+  name                String
+  scene               String
+  sourceType          String   @default("SYNTHETIC") @map("source_type")
+  width               Int
+  height              Int
+  targetFps           Float    @map("target_fps")
+  objectCount         Int      @map("object_count")
+  confidenceThreshold Float    @map("confidence_threshold")
+  classFilterJson     String   @default("[]") @map("class_filter_json")
+  roiJson             String?  @map("roi_json")
+  lineJson            String?  @map("line_json")
+  queueCapacity       Int      @default(30) @map("queue_capacity")
+  gridCols            Int      @default(40) @map("grid_cols")
+  gridRows            Int      @default(24) @map("grid_rows")
+  emitStride          Int      @default(2) @map("emit_stride")
+  status              String   @default("IDLE")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("streams")
+}
+
+model Session {
+  id              String    @id
+  streamId        String    @map("stream_id")
+  state           String
+  reason          String?
+  startedAt       DateTime  @map("started_at")
+  endedAt         DateTime? @map("ended_at")
+  framesProcessed Int       @default(0) @map("frames_processed")
+  framesDropped   Int       @default(0) @map("frames_dropped")
+  detectionsTotal Int       @default(0) @map("detections_total")
+  eventsTotal     Int       @default(0) @map("events_total")
+
+  @@index([streamId, startedAt])
+  @@map("sessions")
+}
+
+model Detection {
+  id         Int      @id @default(autoincrement())
+  sessionId  String   @map("session_id")
+  streamId   String   @map("stream_id")
+  frameIndex Int      @map("frame_index")
+  ts         DateTime
+  label      String
+  confidence Float
+  trackId    Int      @map("track_id")
+  x          Float
+  y          Float
+  w          Float
+  h          Float
+
+  @@index([sessionId, ts])
+  @@index([streamId, ts])
+  @@index([label])
+  @@map("detections")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  sessionId   String   @map("session_id")
+  streamId    String   @map("stream_id")
+  type        String
+  trackId     Int?     @map("track_id")
+  label       String?
+  payloadJson String   @map("payload_json")
+  ts          DateTime
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([streamId, ts])
+  @@index([type])
+  @@map("events")
+}
+
+model Metric {
+  id              Int      @id @default(autoincrement())
+  sessionId       String   @map("session_id")
+  streamId        String   @map("stream_id")
+  ts              DateTime
+  sourceFps       Float    @map("source_fps")
+  processedFps    Float    @map("processed_fps")
+  latencyAvgMs    Float    @map("latency_avg_ms")
+  latencyMinMs    Float    @map("latency_min_ms")
+  latencyMaxMs    Float    @map("latency_max_ms")
+  latencyP50Ms    Float    @map("latency_p50_ms")
+  latencyP95Ms    Float    @map("latency_p95_ms")
+  queueDepth      Int      @map("queue_depth")
+  droppedTotal    Int      @map("dropped_total")
+  cpuPercent      Float    @map("cpu_percent")
+  memoryMb        Float    @map("memory_mb")
+  framesProcessed Int      @map("frames_processed")
+  detectionsTotal Int      @map("detections_total")
+
+  @@index([sessionId, ts])
+  @@map("metrics")
+}
+
+model Model {
+  id          String   @id
+  name        String   @unique
+  task        String   @default("OBJECT_DETECTION")
+  format      String   @default("ONNX")
+  device      String   @default("CPU")
+  inputShape  String   @map("input_shape")
+  classesJson String   @map("classes_json")
+  sizeBytes   Int?     @map("size_bytes")
+  license     String?
+  description String?
+  isActive    Boolean  @default(false) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("models")
+}
