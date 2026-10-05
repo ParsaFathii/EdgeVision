@@ -138,6 +138,7 @@ export function ViewStreamDetail({ streamId, nav }: { streamId: string; nav: Nav
   const [stopConfirm, setStopConfirm] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
   const seenSession = useRef<string | null>(null);
+  const evSeq = useRef(0); // شمارهٔ یکتای رویدادهای زنده — ضد کلید تکراری وقتی دو رویداد هم‌نوع در یک لحظه می‌رسند
   const lastPos = useRef<Map<string, number>>(new Map());
   const lastDirs = useRef<Record<string, number>>({});
 
@@ -196,7 +197,7 @@ export function ViewStreamDetail({ streamId, nav }: { streamId: string; nav: Nav
       setEvFeed((prev) =>
         [
           {
-            key: `s${tsNum(e.ts)}-${e.type}`,
+            key: `s${tsNum(e.ts)}-${e.type}-${(evSeq.current += 1)}`,
             type: e.type,
             trackId: e.trackId ?? null,
             label: e.label ?? null,

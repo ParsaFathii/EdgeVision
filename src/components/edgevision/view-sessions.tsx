@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { History, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -171,8 +171,8 @@ export function ViewSessions({ nav }: { nav: Nav }) {
                 {items.map((s) => {
                   const isOpen = expanded === s.id;
                   return (
-                    <>
-                      <TableRow key={s.id} className="border-zinc-800/70">
+                    <Fragment key={s.id}>
+                      <TableRow className="border-zinc-800/70">
                         <TableCell className="ps-2">
                           <Button
                             variant="ghost"
@@ -208,7 +208,7 @@ export function ViewSessions({ nav }: { nav: Nav }) {
                         <TableCell className="tnum text-zinc-300">{fmt.num(s.eventsTotal)}</TableCell>
                       </TableRow>
                       {isOpen && (
-                        <TableRow key={`${s.id}-detail`} className="bg-zinc-950/40 hover:bg-zinc-950/40">
+                        <TableRow className="bg-zinc-950/40 hover:bg-zinc-950/40">
                           <TableCell colSpan={10} className="px-4 py-3">
                             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-400">
                               <span>
@@ -230,7 +230,7 @@ export function ViewSessions({ nav }: { nav: Nav }) {
                           </TableCell>
                         </TableRow>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </TableBody>

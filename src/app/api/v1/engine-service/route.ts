@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
  *
  * Body (optional JSON): { engineBin?: string } — absolute path to the engine
  * binary override (ENGINE_BIN) used by the test harness; must point to an
- * existing file inside /home/z/my-project. Defaults to the real engine at
+ * existing file inside the repository. Defaults to the real engine at
  * engine-cpp/build/edgevision-engine.
  */
 export const POST = withApi(async (req) => {
