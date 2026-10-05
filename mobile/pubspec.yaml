@@ -1,0 +1,28 @@
+# EdgeVision — کلاینت موبایل
+# Copyright © 2026 Parsa Fathi — Apache-2.0
+
+name: edgevision_mobile
+description: >-
+  کلاینت موبایل EdgeVision — پلتفرم تحلیل ویدئوی بلادرنگ.
+  رابط فارسی راست‌به‌چپ با اتصال REST و WebSocket به سرور EdgeVision.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # REST — https://pub.dev/packages/http
+  http: ^1.2.0
+  # WebSocket خام برای پیاده‌سازی دستی پروتکل socket.io v4
+  web_socket_channel: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
